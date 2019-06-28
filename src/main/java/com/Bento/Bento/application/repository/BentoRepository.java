@@ -10,10 +10,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BentoRepository extends JpaRepository<Counter, String>{
 
-    List<Counter> findById(int id);
+    //List<Counter> findById(String id);
     List<Counter> findByIdBetween(String start, String end);
     List<Counter> findByIdIn(String[] ids);
     List<Counter> findByIdNotIn(ArrayList<String> ids);
-
 
 }
