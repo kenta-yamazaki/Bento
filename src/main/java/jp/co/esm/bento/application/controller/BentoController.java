@@ -1,11 +1,10 @@
-package com.Bento.application.controller;
+package jp.co.esm.bento.application.controller;
 
 import java.util.List;
-import java.util.Optional;
 
-import com.Bento.application.entity.Counter;
-import com.Bento.application.repository.BentoRepository;
-import com.Bento.application.service.BentoService;
+import jp.co.esm.bento.application.entity.Counter;
+import jp.co.esm.bento.application.repository.BentoRepository;
+import jp.co.esm.bento.application.service.BentoService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

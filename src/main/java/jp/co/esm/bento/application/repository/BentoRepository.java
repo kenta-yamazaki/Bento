@@ -1,6 +1,6 @@
-package com.Bento.application.repository;
+package jp.co.esm.bento.application.repository;
 
-import com.Bento.application.entity.Counter;
+import jp.co.esm.bento.application.entity.Counter;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,7 +1,7 @@
-package com.Bento.application.service;
+package jp.co.esm.bento.application.service;
 
-import com.Bento.application.entity.Counter;
-import com.Bento.application.repository.BentoRepository;
+import jp.co.esm.bento.application.entity.Counter;
+import jp.co.esm.bento.application.repository.BentoRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

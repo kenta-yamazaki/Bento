@@ -1,4 +1,4 @@
-package com.Bento.application.entity;
+package jp.co.esm.bento.application.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,12 +11,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
+@javax.persistence.Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "testtable")
-public class Counter {
+public class Entity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
