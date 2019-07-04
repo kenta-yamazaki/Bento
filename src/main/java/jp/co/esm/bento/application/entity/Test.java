@@ -1,7 +1,6 @@
 package jp.co.esm.bento.application.entity;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.GeneratedValue;
@@ -11,12 +10,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@javax.persistence.Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "testtable")
-public class Entity {
+@Table(name = "Test")
+public class Test {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
