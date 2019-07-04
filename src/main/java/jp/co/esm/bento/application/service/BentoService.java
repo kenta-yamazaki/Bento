@@ -1,31 +1,33 @@
 package jp.co.esm.bento.application.service;
 
-import jp.co.esm.bento.application.entity.Counter;
+import jp.co.esm.bento.application.entity.Test;
 import jp.co.esm.bento.application.repository.BentoRepository;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
-@NoArgsConstructor
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class BentoService {
 
-    @Autowired
-    private BentoRepository repository;
+    private final BentoRepository repository;
 
-    public Counter selectData(String id){
-        Optional<Counter> list = repository.findById(Integer.parseInt(id));
+    public List<Test> selectAll() {
+        List<Test> list = repository.findAll();
+        return list;
+    }
+
+    public Test selectData(String id) {
+        Optional<Test> list = repository.findById(Integer.parseInt(id));
         return list.get();
     }
 
     public void bentoInsert() {
-        Counter counter = new Counter();
-        counter.setName("testName");
-        counter.setAge(34);
-        repository.save(counter);
+        Test test = new Test();
+        test.setName("testName");
+        test.setAge(34);
+        repository.save(test);
     }
 }
