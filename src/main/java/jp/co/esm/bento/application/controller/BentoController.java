@@ -1,32 +1,22 @@
 package jp.co.esm.bento.application.controller;
 
-import java.util.List;
-
-import jp.co.esm.bento.application.entity.Counter;
-import jp.co.esm.bento.application.repository.BentoRepository;
 import jp.co.esm.bento.application.service.BentoService;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 @RequestMapping("/bento")
 public class BentoController {
 
-    @Autowired
-    private BentoService bentoService;
-
-    @Autowired
-    private BentoRepository bentoRepository;
+    private final BentoService bentoService;
 
     @RequestMapping("/all")
-    public List<Counter> selectAll() {
-        List<Counter> list = bentoRepository.findAll();
-        return list;
+    public void selectAll() {
+        bentoService.selectAll();
     }
 
     @RequestMapping("/select")
