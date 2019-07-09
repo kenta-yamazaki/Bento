@@ -18,21 +18,21 @@ public class BentoOrder {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "order_id")
-    private int order_id;
+    @Column(name = "id")
+    private int id;
 
     @Column(name = "order_date")
     private Date order_date;
 
-    @Column(name = "order_name")
-    private String order_name;
+    @Column(name = "name")
+    private String name;
 
-    @Column(name = "order_menu")
-    private int order_menu;
+    @Column(name = "bento_id")
+    private int bento_id;
 
-    @Column(name = "order_rice")
-    private int order_rice;
+    @Column(name = "rice_id")
+    private int rice_id;
 
-    @Column(name = "order_arrival")
-    private Date order_arrival;
+    @Column(name = "arrival")
+    private Date arrival;
 }
