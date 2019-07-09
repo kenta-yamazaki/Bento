@@ -22,22 +22,22 @@ public class BentoService {
     }
 
     public BentoOrder selectData(String id) throws NoSuchElementException {
-        Optional<BentoOrder> list = repository.findById(Integer.parseInt(id));
-        if(!list.isPresent()){
+        Optional<BentoOrder> order = repository.findById(Integer.parseInt(id));
+        if(!order.isPresent()){
             throw new NoSuchElementException("指定のIDはありません。");
         }else
-        return list.get();
+        return order.get();
     }
 
     public void bentoInsert() {
         BentoOrder bentoOrder = new BentoOrder();
         Date date = Date.valueOf("2019-07-07");
         bentoOrder.setOrder_date(date);
-        bentoOrder.setOrder_name("名無し");
-        bentoOrder.setOrder_menu(1);
-        bentoOrder.setOrder_rice(1);
+        bentoOrder.setName("名無し");
+        bentoOrder.setBento_id(1);
+        bentoOrder.setRice_id(1);
         date.valueOf("2019-07-10");
-        bentoOrder.setOrder_arrival(date);
+        bentoOrder.setArrival(date);
         repository.save(bentoOrder);
     }
 }
