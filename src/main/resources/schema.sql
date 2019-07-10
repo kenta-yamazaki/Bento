@@ -4,7 +4,7 @@ CREATE TABLE if not exists bento_order(
     name varchar(10) NOT NULL,
     bento_id int NOT NULL,
     rice_id int NOT NULL,
-    arrival date NOT NULL,
+    arrival_date date NOT NULL,
     PRIMARY KEY (id)
 );
 

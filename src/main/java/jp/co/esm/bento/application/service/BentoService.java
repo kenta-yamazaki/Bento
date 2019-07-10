@@ -37,7 +37,7 @@ public class BentoService {
         bentoOrder.setBento_id(1);
         bentoOrder.setRice_id(1);
         date.valueOf("2019-07-10");
-        bentoOrder.setArrival(date);
+        bentoOrder.setArrival_date(date);
         repository.save(bentoOrder);
     }
 }

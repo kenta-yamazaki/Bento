@@ -33,6 +33,6 @@ public class BentoOrder {
     @Column(name = "rice_id")
     private int rice_id;
 
-    @Column(name = "arrival")
-    private Date arrival;
+    @Column(name = "arrival_date")
+    private Date arrival_date;
 }
