@@ -2,42 +2,45 @@ package jp.co.esm.bento.application.service;
 
 import jp.co.esm.bento.application.entity.BentoOrder;
 import jp.co.esm.bento.application.repository.BentoRepository;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.sql.Date;
+
 
 @Service
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 public class BentoService {
 
-    private final BentoRepository repository;
+    @Autowired
+    private BentoRepository bentoRepository;
 
     public List<BentoOrder> selectAll() {
-        List<BentoOrder> list = repository.findAll();
+        List<BentoOrder> list = bentoRepository.findAll();
         return list;
     }
 
-    public BentoOrder selectData(String id) throws NoSuchElementException {
-        Optional<BentoOrder> order = repository.findById(Integer.parseInt(id));
-        if(!order.isPresent()){
-            throw new NoSuchElementException("指定のIDはありません。");
-        }else
-        return order.get();
+    public void create(BentoOrder bentoOrder) {
+        bentoRepository.save(bentoInsert(bentoOrder));
+    }
+    public BentoOrder bentoInsert(BentoOrder bentoOrder) {
+        BentoOrder bentoOrder1 = new BentoOrder();
+        bentoOrder1.setName(bentoOrder.getName());
+        bentoOrder1.setBentoId(bentoOrder.getBentoId());
+        bentoOrder1.setRiceId(bentoOrder.getRiceId());
+        bentoOrder1.setArrivalDate(bentoOrder.getArrivalDate());
+        return bentoOrder1;
     }
 
-    public void bentoInsert() {
-        BentoOrder bentoOrder = new BentoOrder();
-        Date date = Date.valueOf("2019-07-07");
-        bentoOrder.setOrder_date(date);
-        bentoOrder.setName("名無し");
-        bentoOrder.setBento_id(1);
-        bentoOrder.setRice_id(1);
-        date.valueOf("2019-07-10");
-        bentoOrder.setArrival_date(date);
-        repository.save(bentoOrder);
+    public BentoOrder selectData(String id) throws NoSuchElementException {
+        Optional<BentoOrder> order = bentoRepository.findById(Integer.parseInt(id));
+        if (!order.isPresent()) {
+            throw new NoSuchElementException("指定したIDはありません。");
+        } else
+            return order.get();
     }
 }
