@@ -32,4 +32,9 @@ public class BentoController {
             return "orderHistory";
         }
     }
+    @RequestMapping(value = "/user/orderList", method = RequestMethod.GET)
+    public String displayList(Model model){
+        model.addAttribute("bentoOrderList", bentoService.selectAll());
+        return "orderList";
+    }
 }
