@@ -42,7 +42,7 @@ class BentoServiceTest {
 
     @Test
     @Sql(statements = {"delete from bento_order;"
-    ,"insert into bento_order values(2,'ドナルド',1,1,'2019-07-19');insert into bento_order values(3,'デイジー',2,0,'2019-07-27');"})
+            , "insert into bento_order values(2,'ドナルド',1,1,'2019-07-19'),(3,'デイジー',2,0,'2019-07-27');"})
     public void selectAllTest() {
         List<BentoOrder> memberList = new ArrayList<BentoOrder>();
         BentoOrder bentoOrder = new BentoOrder(2, "ドナルド", 1, 1, "2019-07-19");
@@ -50,7 +50,7 @@ class BentoServiceTest {
         memberList.add(bentoOrder);
         memberList.add(bentoOrder2);
 
-        assertEquals(memberList,bentoService.selectAll());
+        assertEquals(memberList, bentoService.selectAll());
     }
 
     @Test
@@ -72,7 +72,7 @@ class BentoServiceTest {
                 () -> assertEquals("hoge", after.get(0).getName()),
                 () -> assertEquals((Integer) 1, after.get(0).getBento_id()),
                 () -> assertEquals((Integer) 0, after.get(0).getRice_id()),
-                () -> assertEquals("2019-07-22", after.get(0).getArrival_date())
+                () -> assertEquals(LocalDate.now().toString(), after.get(0).getArrival_date())
         );
     }
 
@@ -87,10 +87,10 @@ class BentoServiceTest {
     @Test
     @Sql(statements = {"delete from bento_order;"
             , "INSERT INTO bento_order VALUES(1, 'hoge', 1, 0,'2017-07-22')"})
-    public void selectDataErrTest(){
-        Throwable exception = assertThrows(NoSuchElementException.class,() -> {
+    public void selectDataErrTest() {
+        Throwable exception = assertThrows(NoSuchElementException.class, () -> {
             bentoService.selectData("0");
         });
-        assertEquals("指定したIDはありません。",exception.getMessage());
+        assertEquals("指定したIDはありません。", exception.getMessage());
     }
 }
