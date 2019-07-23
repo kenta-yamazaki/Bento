@@ -14,12 +14,9 @@ import java.util.Optional;
 
 
 @Service
-@AllArgsConstructor
-@NoArgsConstructor
+@RequiredArgsConstructor
 public class BentoService {
-
-    @Autowired
-    private BentoRepository bentoRepository;
+    private final BentoRepository bentoRepository;
 
     public List<BentoOrder> selectAll() {
         List<BentoOrder> list = bentoRepository.findAll();
@@ -29,12 +26,14 @@ public class BentoService {
     public void create(BentoOrder bentoOrder) {
         bentoRepository.save(bentoOrder);
     }
+
     public BentoOrder selectData(String id) throws NoSuchElementException {
         Optional<BentoOrder> order = bentoRepository.findById(Integer.parseInt(id));
         if (!order.isPresent()) {
             throw new NoSuchElementException("指定したIDはありません。");
-        } else
+        } else {
             return order.get();
+        }
     }
 }
 
