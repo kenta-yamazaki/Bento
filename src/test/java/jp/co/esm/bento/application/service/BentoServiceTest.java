@@ -20,10 +20,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import javax.transaction.Transactional;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -60,9 +57,11 @@ class BentoServiceTest {
         // 実行前の状態を確認
         List<BentoOrder> before = bentoRepository.findAll();
 
+        LocalDate now = LocalDate.now();
+
         // 対象のメソッドを実行
         bentoService.create(new BentoOrder(
-                null, "hoge", 1, 0, LocalDate.now().toString()
+                null, "hoge", 1, 0, now.toString()
         ));
 
         // 実行後の状態を検証
@@ -72,7 +71,7 @@ class BentoServiceTest {
                 () -> assertEquals("hoge", after.get(0).getName()),
                 () -> assertEquals((Integer) 1, after.get(0).getBento_id()),
                 () -> assertEquals((Integer) 0, after.get(0).getRice_id()),
-                () -> assertEquals(LocalDate.now().toString(), after.get(0).getArrival_date())
+                () -> assertEquals(now.toString(), after.get(0).getArrival_date())
         );
     }
 
