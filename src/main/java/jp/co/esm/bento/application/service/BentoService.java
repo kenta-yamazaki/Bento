@@ -1,11 +1,8 @@
 package jp.co.esm.bento.application.service;
 
 import jp.co.esm.bento.application.entity.BentoOrder;
-import jp.co.esm.bento.application.repository.BentoRepository;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import jp.co.esm.bento.application.repository.BentoOrderRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,19 +13,19 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class BentoService {
-    private final BentoRepository bentoRepository;
+    private final BentoOrderRepository bentoOrderRepository;
 
     public List<BentoOrder> selectAll() {
-        List<BentoOrder> list = bentoRepository.findAll();
+        List<BentoOrder> list = bentoOrderRepository.findAll();
         return list;
     }
 
     public void create(BentoOrder bentoOrder) {
-        bentoRepository.save(bentoOrder);
+        bentoOrderRepository.save(bentoOrder);
     }
 
     public BentoOrder selectData(String id) throws NoSuchElementException {
-        Optional<BentoOrder> order = bentoRepository.findById(Integer.parseInt(id));
+        Optional<BentoOrder> order = bentoOrderRepository.findById(Integer.parseInt(id));
         if (!order.isPresent()) {
             throw new NoSuchElementException("指定したIDはありません。");
         } else {
@@ -36,4 +33,3 @@ public class BentoService {
         }
     }
 }
-
