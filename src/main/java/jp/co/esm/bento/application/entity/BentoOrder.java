@@ -14,11 +14,19 @@ import javax.validation.constraints.NotEmpty;
 
 
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
 @Table(name = "bento_order")
 @Data
 public class BentoOrder {
+
+    public BentoOrder(){
+    }
+    public BentoOrder(int id,String name,Integer bento_id,Integer rice_id,String arrival_date){
+        this.id = id;
+        this.name = name;
+        this.bento_id = bento_id;
+        this.rice_id = rice_id;
+        this.arrival_date = arrival_date;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
