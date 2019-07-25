@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>注文フォーム/title>
+    <title>注文フォーム</title>
     <link href="/css/add.css" rel="stylesheet"></link>
     <meta charset="utf-8" />
 </head>
@@ -20,14 +20,16 @@
             <td><input type="text" th:field="*{bento_id}"></td>
         </tr>
         <tr>
-            <th class="cell_title">ご飯の有無</th>
-            <th class="cell_required"></th>
-            <td><input type="text" th:field="*{rice_id}"></td>
-        </tr>
+        <th class="cell_title">ご飯の有無</th>
+        <th class="cell_required"></th>
+        <div th:each="rice : ${radioRice}">
+            <input type="radio" name="rice_id" th:value="${rice.key}" th:text="${rice.value}" th:field="*{rice_id}" />
+        </div>
+    </tr>
         <tr>
             <th class="cell_title">到着日</th>
             <th class="cell_required"></th>
-            <td><input type="text" th:field="*{arrival_date}"></td>
+            <td><input type="date" th:field="*{arrival_date}"></td>
         </tr>
     </table>
     <div class="btn_area_center"><input type="submit" value="登録" class="btn"></div>
