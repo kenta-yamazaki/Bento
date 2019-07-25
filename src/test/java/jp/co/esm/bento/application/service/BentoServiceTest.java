@@ -1,21 +1,16 @@
 package jp.co.esm.bento.application.service;
 
 import jp.co.esm.bento.application.BentoApplication;
-import jp.co.esm.bento.application.controller.BentoController;
 import jp.co.esm.bento.application.entity.BentoOrder;
-import jp.co.esm.bento.application.repository.BentoRepository;
-import org.junit.jupiter.api.BeforeEach;
+import jp.co.esm.bento.application.repository.BentoOrderRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import javax.transaction.Transactional;
 
@@ -35,7 +30,7 @@ class BentoServiceTest {
     private BentoService bentoService;
 
     @Autowired
-    private BentoRepository bentoRepository;
+    private BentoOrderRepository bentoOrderRepository;
 
     @Test
     @Sql(statements = {"delete from bento_order;"
@@ -55,17 +50,17 @@ class BentoServiceTest {
     public void createTest() {
 
         // 実行前の状態を確認
-        List<BentoOrder> before = bentoRepository.findAll();
+        List<BentoOrder> before = bentoOrderRepository.findAll();
 
         LocalDate now = LocalDate.now();
 
         // 対象のメソッドを実行
         bentoService.create(new BentoOrder(
-                null, "hoge", 1, 0, now.toString()
+               1 , "hoge", 1, 0, now.toString()
         ));
 
         // 実行後の状態を検証
-        List<BentoOrder> after = bentoRepository.findAll();
+        List<BentoOrder> after = bentoOrderRepository.findAll();
         assertEquals(before.size() + 1, after.size());
         assertAll(
                 () -> assertEquals("hoge", after.get(0).getName()),
