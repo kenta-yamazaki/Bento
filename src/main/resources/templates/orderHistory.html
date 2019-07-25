@@ -1,0 +1,14 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Result</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>明細</h1>
+<p th:text="'名前: ' + ${bentoOrder.name}" />
+<p th:text="'弁当の種類: ' + ${bentoOrder.bento_id}" />
+<p th:text="'ご飯の有無: ' + ${bentoOrder.rice_id}" />
+<p th:text="'到着日: ' + ${bentoOrder.arrival_date}" />
+</body>
+</html>

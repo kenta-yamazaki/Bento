@@ -7,10 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.*;
 
-
 import java.util.List;
 import java.util.NoSuchElementException;
-
 
 @RestController
 @RequiredArgsConstructor
@@ -22,8 +20,6 @@ public class BentoRestController {
     public List<BentoOrder> selectAll() {
         return bentoService.selectAll();
     }
-
-
 
     @RequestMapping("/select")
     public Object selectData(@RequestParam("id") String id) {
