@@ -8,30 +8,13 @@
 <body>
 <h1>注文フォーム</h1>
 <form th:action="@{/bento/user/orderHistory}" th:object="${bentoOrder}" method="post">
-    <table>
-        <tr>
-            <th class="cell_title">名前</th>
-            <th class="cell_required"></th>
-            <td><input type="text" th:field="*{name}"></td><span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</span>
-        </tr>
-        <tr>
-            <th class="cell_title">弁当の種類</th>
-            <th class="cell_required"></th>
-            <td><input type="text" th:field="*{bento_id}"></td>
-        </tr>
-        <tr>
-        <th class="cell_title">ご飯の有無</th>
-        <th class="cell_required"></th>
-        <div th:each="rice : ${radioRice}">
-            <input type="radio" name="rice_id" th:value="${rice.key}" th:text="${rice.value}" th:field="*{rice_id}" />
-        </div>
-    </tr>
-        <tr>
-            <th class="cell_title">到着日</th>
-            <th class="cell_required"></th>
-            <td><input type="date" th:field="*{arrival_date}"></td>
-        </tr>
-    </table>
+    <p>名前<input type="text" th:field="*{name}"></td><span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</span></p>
+    <p>弁当の種類<input type="text" th:field="*{bento_id}"></p>
+    <p>ご飯の有無
+    <div th:each="rice : ${radioRice}">
+        <input type="radio" name="rice_id" th:value="${rice.key}" th:text="${rice.value}" th:field="*{rice_id}" />
+    </div></p>
+    <p>到着日<input type="date" th:field="*{arrival_date}"></p>
     <div class="btn_area_center"><input type="submit" value="登録" class="btn"></div>
 </form>
 </body>
