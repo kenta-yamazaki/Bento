@@ -12,9 +12,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/bento")
@@ -25,7 +22,7 @@ public class BentoController {
     @RequestMapping(value = "/user/order", method = RequestMethod.GET)
     public String displayAdd(Model model) {
         model.addAttribute("bentoOrder", new BentoOrder());
-        model.addAttribute("radioRice", getRadioRice());
+        model.addAttribute("radioRice", bentoService.getRadioRice());
         return "order";
     }
 
@@ -35,19 +32,10 @@ public class BentoController {
             return "order";
         } else {
             model.addAttribute("bentoOrder", bentoOrder);
-            model.addAttribute("riceAvailablity", riceRepository.findById(bentoOrder.getBento_id()).get().getAvailability());
+            model.addAttribute("riceAvailablity", bentoService.selectRice(bentoOrder.getRice_id()).getAvailability());
             bentoService.create(bentoOrder);
             return "orderHistory";
         }
-    }
-
-
-    private Map<String, String> getRadioRice() {
-        Map<String, String> selectMap = new LinkedHashMap<String, String>();
-        selectMap.put("0", "ご飯あり");
-        selectMap.put("1", "ご飯なし");
-
-        return selectMap;
     }
 
     @RequestMapping(value = "/user/orderList", method = RequestMethod.GET)
