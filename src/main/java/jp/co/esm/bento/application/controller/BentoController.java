@@ -5,6 +5,7 @@ import jp.co.esm.bento.application.service.BentoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -36,7 +37,7 @@ public class BentoController {
     }
 
     @RequestMapping(value = "/user/orderList", method = RequestMethod.GET)
-    public String displayList(Model model){
+    public String displayList(Model model) {
         model.addAttribute("bentoOrderList", bentoService.selectAll());
         return "orderList";
     }
