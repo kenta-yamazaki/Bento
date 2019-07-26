@@ -23,6 +23,7 @@ public class BentoController {
     public String displayAdd(Model model) {
         model.addAttribute("bentoOrder", new BentoOrder());
         model.addAttribute("radioRice", bentoService.getRadioRice());
+        model.addAttribute("radioItems", bentoService.getRadioItems());
         return "order";
     }
 
@@ -33,6 +34,8 @@ public class BentoController {
         } else {
             model.addAttribute("bentoOrder", bentoOrder);
             model.addAttribute("riceAvailablity", bentoService.selectRice(bentoOrder.getRice_id()).getAvailability());
+            model.addAttribute("bentoName", bentoService.selectBento(bentoOrder.getBento_id()).getName());
+
             bentoService.create(bentoOrder);
             return "orderHistory";
         }
