@@ -14,10 +14,10 @@ import javax.validation.constraints.NotEmpty;
 
 
 @Entity
-@AllArgsConstructor
-@NoArgsConstructor
 @Table(name = "bento_order")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class BentoOrder {
 
     @Id

@@ -20,6 +20,7 @@ public class BentoController {
     @RequestMapping(value = "/user/order", method = RequestMethod.GET)
     public String displayAdd(Model model) {
         model.addAttribute("bentoOrder", new BentoOrder());
+        model.addAttribute("radioItems", bentoService.getRadioItems());
         return "order";
     }
 
@@ -29,6 +30,7 @@ public class BentoController {
             return "order";
         } else {
             model.addAttribute("bentoOrder", bentoOrder);
+            model.addAttribute("bentoName", bentoService.selectBento(bentoOrder.getBento_id()).getName());
             bentoService.create(bentoOrder);
             return "orderHistory";
         }
