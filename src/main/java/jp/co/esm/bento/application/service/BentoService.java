@@ -2,6 +2,11 @@ package jp.co.esm.bento.application.service;
 
 import jp.co.esm.bento.application.entity.Bento;
 import jp.co.esm.bento.application.entity.BentoOrder;
+import jp.co.esm.bento.application.entity.Rice;
+import jp.co.esm.bento.application.repository.BentoRepository;
+import jp.co.esm.bento.application.repository.RiceRepository;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import jp.co.esm.bento.application.repository.BentoOrderRepository;
 import jp.co.esm.bento.application.repository.BentoRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +20,7 @@ import java.util.*;
 public class BentoService {
     private final BentoOrderRepository bentoOrderRepository;
     private final BentoRepository bentoRepository;
+    private final RiceRepository riceRepository;
 
     public List<BentoOrder> selectAll() {
         List<BentoOrder> list = bentoOrderRepository.findAll();
@@ -33,6 +39,25 @@ public class BentoService {
             return order.get();
         }
     }
+  
+    public Rice selectRice(Integer id) throws NoSuchElementException {
+        Optional<Rice> rice = riceRepository.findById(id);
+        if (!rice.isPresent()) {
+            throw new NoSuchElementException("指定したIDはありません。");
+        } else {
+            return rice.get();
+        }
+    }
+
+    public Map<String, String> getRadioRice() {
+        Map<String, String> selectMap = new LinkedHashMap<String, String>();
+        List<Rice> rice = riceRepository.findAll();
+        for (int i = 0; i < rice.size(); i++) {
+            selectMap.put(String.valueOf(rice.get(i).getId()), rice.get(i).getAvailability());
+        }
+        return selectMap;
+    }
+}
 
     public Bento selectBento(Integer id) throws NoSuchElementException {
         Optional<Bento> bento = bentoRepository.findById(id);
