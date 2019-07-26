@@ -19,6 +19,7 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 @ContextConfiguration(classes = BentoApplication.class)
@@ -56,7 +57,7 @@ class BentoServiceTest {
 
         // 対象のメソッドを実行
         bentoService.create(new BentoOrder(
-               1 , "hoge", 1, 0, now.toString()
+               null , "hoge", 1, 0, now.toString()
         ));
 
         // 実行後の状態を検証
