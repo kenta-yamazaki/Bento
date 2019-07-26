@@ -1,7 +1,6 @@
 package jp.co.esm.bento.application.controller;
 
 import jp.co.esm.bento.application.entity.BentoOrder;
-import jp.co.esm.bento.application.repository.BentoRepository;
 import jp.co.esm.bento.application.service.BentoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -11,20 +10,16 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/bento")
 public class BentoController {
     private final BentoService bentoService;
-    private final BentoRepository bentoRepository;
 
     @RequestMapping(value = "/user/order", method = RequestMethod.GET)
     public String displayAdd(Model model) {
         model.addAttribute("bentoOrder", new BentoOrder());
-        model.addAttribute("radioItems", getRadioItems());
+        model.addAttribute("radioItems", bentoService.getRadioItems());
         return "order";
     }
 
@@ -34,19 +29,10 @@ public class BentoController {
             return "order";
         } else {
             model.addAttribute("bentoOrder", bentoOrder);
-            model.addAttribute("bentoName", bentoRepository.findById(bentoOrder.getBento_id()).get().getName());
+            model.addAttribute("bentoName", bentoService.selectBento(bentoOrder.getBento_id()).getName());
             bentoService.create(bentoOrder);
             return "orderHistory";
         }
-    }
-
-    private Map<String, String> getRadioItems() {
-        Map<String, String> selectMap = new LinkedHashMap<String, String>();
-        selectMap.put("0", "勇気");
-        selectMap.put("1", "本気");
-        selectMap.put("2", "元気");
-
-        return selectMap;
     }
 
     @RequestMapping(value = "/user/orderList", method = RequestMethod.GET)
