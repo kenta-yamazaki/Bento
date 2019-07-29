@@ -5,10 +5,7 @@ import jp.co.esm.bento.application.entity.BentoOrder;
 import jp.co.esm.bento.application.entity.Rice;
 import jp.co.esm.bento.application.repository.BentoRepository;
 import jp.co.esm.bento.application.repository.RiceRepository;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import jp.co.esm.bento.application.repository.BentoOrderRepository;
-import jp.co.esm.bento.application.repository.BentoRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +36,7 @@ public class BentoService {
             return order.get();
         }
     }
-  
+
     public Rice selectRice(Integer id) throws NoSuchElementException {
         Optional<Rice> rice = riceRepository.findById(id);
         if (!rice.isPresent()) {
@@ -57,7 +54,7 @@ public class BentoService {
         }
         return selectMap;
     }
-}
+
 
     public Bento selectBento(Integer id) throws NoSuchElementException {
         Optional<Bento> bento = bentoRepository.findById(id);
