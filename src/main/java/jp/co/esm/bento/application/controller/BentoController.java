@@ -12,6 +12,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/bento")
@@ -43,7 +46,18 @@ public class BentoController {
 
     @RequestMapping(value = "/user/orderList", method = RequestMethod.GET)
     public String displayList(Model model) {
+        List<String> bentoList = new ArrayList<>();
+        for (int i = 0; i < bentoService.selectAll().size(); i++) {
+            bentoList.add(bentoService.selectBento(bentoService.selectAll().get(i).getBento_id()).getName());
+        }
+        List<String> riceList = new ArrayList<>();
+        for (int i = 0; i < bentoService.selectAll().size(); i++) {
+            riceList.add(bentoService.selectRice(bentoService.selectAll().get(i).getRice_id()).getAvailability());
+        }
         model.addAttribute("bentoOrderList", bentoService.selectAll());
+        model.addAttribute("bentoNameList", bentoList);
+        model.addAttribute("riceAvailablityList", riceList);
+
         return "orderList";
     }
 }
