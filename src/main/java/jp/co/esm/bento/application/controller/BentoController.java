@@ -55,21 +55,21 @@ public class BentoController {
         List<Rice> riceList = bentoService.selectRiceAll();
 
         List<String> bentoNameList = bentoOrderList.stream().map(bentoOrder -> {
-            if (bentoOrder.getBento_id() == bentoList.get(0).getId()) {
-                return bentoList.get(0).getName();
-            } else if (bentoOrder.getBento_id() == bentoList.get(1).getId()) {
-                return bentoList.get(1).getName();
-            } else {
-                return bentoList.get(2).getName();
+            for (int i = 0; i < bentoList.size(); i++) {
+                if (bentoOrder.getBento_id() == bentoList.get(i).getId()) {
+                    return bentoList.get(i).getName();
+                }
             }
+            return null;
         }).collect(Collectors.toList());
 
         List<String> riceAvailablityList = bentoOrderList.stream().map(bentoOrder -> {
-            if (bentoOrder.getRice_id() == riceList.get(0).getId()) {
-                return riceList.get(0).getAvailability();
-            } else {
-                return riceList.get(1).getAvailability();
+            for (int i = 0; i < riceList.size(); i++) {
+                if (bentoOrder.getRice_id() == riceList.get(i).getId()) {
+                    return riceList.get(i).getAvailability();
+                }
             }
+            return null;
         }).collect(Collectors.toList());
 
         model.addAttribute("bentoOrderList", bentoOrderList);
