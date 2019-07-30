@@ -1,12 +1,26 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Result</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>発注内容リスト</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
 <h1>発注内容リスト</h1>
-<tr th:each="bentoOrder : ${bentoOrderList}">
-<p th:text="'List: ' + ${bentoOrder}" />
+<table border="1" cellpadding="5" cellspacing="0">
+    <tr>
+        <th>ID</th>
+        <th>注文者</th>
+        <th>弁当の種類</th>
+        <th>ご飯の有無</th>
+        <th>到着日</th>
+    </tr>
+    <tr th:each="bentoOrder,list : ${bentoOrderList}">
+        <td th:text="${bentoOrder.id}"></td>
+        <td th:text="${bentoOrder.name}"></td>
+        <td th:text="${bentoNameList[__${list.index}__]}"></td>
+        <td th:text="${riceAvailablityList[__${list.index}__]}"></td>
+        <td th:text="${bentoOrder.arrival_date}"></td>
+    </tr>
+</table>
 </body>
 </html>
