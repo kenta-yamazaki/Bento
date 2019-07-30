@@ -59,22 +59,18 @@ class BentoRestControllerTest {
 
     @Test
     public void selectにGETリクエストすると200OKとselectしたidのレコードが返される() throws Exception {
-        List<BentoOrder> bentoOrderList = new ArrayList<BentoOrder>();
-        BentoOrder bentoOrder = new BentoOrder(1, "ミッキー", 1, 1, "2019-07-12");
-        BentoOrder bentoOrder1 = new BentoOrder(2, "ミニー", 2, 0, "2019-07-24");
-        bentoOrderList.add(bentoOrder);
-        bentoOrderList.add(bentoOrder1);
+        BentoOrder bentoOrder = new BentoOrder(2, "ミニー", 2, 0, "2019-07-24");
 
-        when(bentoService.selectData("2")).thenReturn(bentoOrder1);
+        when(bentoService.selectData("2")).thenReturn(bentoOrder);
         mvc
                 .perform(get("/bento/select?id=2"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").exists())
-                .andExpect(jsonPath("$.id").value(bentoOrder1.getId()))
-                .andExpect(jsonPath("$.name").value(bentoOrder1.getName()))
-                .andExpect(jsonPath("$.bento_id").value(bentoOrder1.getBento_id()))
-                .andExpect(jsonPath("$.rice_id").value(bentoOrder1.getRice_id()))
-                .andExpect(jsonPath("$.arrival_date").value(bentoOrder1.getArrival_date()));
+                .andExpect(jsonPath("$.id").value(bentoOrder.getId()))
+                .andExpect(jsonPath("$.name").value(bentoOrder.getName()))
+                .andExpect(jsonPath("$.bento_id").value(bentoOrder.getBento_id()))
+                .andExpect(jsonPath("$.rice_id").value(bentoOrder.getRice_id()))
+                .andExpect(jsonPath("$.arrival_date").value(bentoOrder.getArrival_date()));
         verify(bentoService).selectData("2");
     }
 }
