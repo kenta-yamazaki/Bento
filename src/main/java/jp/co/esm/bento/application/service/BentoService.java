@@ -75,7 +75,7 @@ public class BentoService {
         }
     }
 
-    public Map<String, String> getRadioItems() {
+    public Map<String, String> getRadioBento() {
         Map<String, String> selectMap = new LinkedHashMap<String, String>();
         List<Bento> bento = bentoRepository.findAll();
         for (int i = 0; i < bento.size(); i++) {
