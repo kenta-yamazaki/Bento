@@ -10,8 +10,8 @@
 <form th:action="@{/bento/user/orderHistory}" th:object="${bentoOrder}" method="post">
     <p>名前<input type="text" th:field="*{name}"></td><span th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</span></p>
     <p>弁当の種類
-    <div th:each="item : ${radioItems}">
-        <input type="radio" name="bento_id" th:value="${item.key}" th:text="${item.value}" th:field="*{bento_id}"></div></p>
+    <div th:each="bento : ${radioBento}">
+        <input type="radio" name="bento_id" th:value="${bento.key}" th:text="${bento.value}" th:field="*{bento_id}"></div></p>
     <p>ご飯の有無
     <div th:each="rice : ${radioRice}">
         <input type="radio" name="rice_id" th:value="${rice.key}" th:text="${rice.value}" th:field="*{rice_id}" />
