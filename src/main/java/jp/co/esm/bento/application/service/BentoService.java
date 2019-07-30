@@ -57,7 +57,6 @@ public class BentoService {
         }
         return selectMap;
     }
-}
 
     public Bento selectBento(Integer id) throws NoSuchElementException {
         Optional<Bento> bento = bentoRepository.findById(id);
