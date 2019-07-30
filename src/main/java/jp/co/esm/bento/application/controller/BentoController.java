@@ -1,9 +1,12 @@
 package jp.co.esm.bento.application.controller;
 
+import jp.co.esm.bento.application.entity.Bento;
 import jp.co.esm.bento.application.entity.BentoOrder;
+import jp.co.esm.bento.application.entity.Rice;
 import jp.co.esm.bento.application.repository.RiceRepository;
 import jp.co.esm.bento.application.service.BentoService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -12,8 +15,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -46,17 +49,32 @@ public class BentoController {
 
     @RequestMapping(value = "/user/orderList", method = RequestMethod.GET)
     public String displayList(Model model) {
-        List<String> bentoList = new ArrayList<>();
-        for (int i = 0; i < bentoService.selectAll().size(); i++) {
-            bentoList.add(bentoService.selectBento(bentoService.selectAll().get(i).getBento_id()).getName());
-        }
-        List<String> riceList = new ArrayList<>();
-        for (int i = 0; i < bentoService.selectAll().size(); i++) {
-            riceList.add(bentoService.selectRice(bentoService.selectAll().get(i).getRice_id()).getAvailability());
-        }
-        model.addAttribute("bentoOrderList", bentoService.selectAll());
-        model.addAttribute("bentoNameList", bentoList);
-        model.addAttribute("riceAvailablityList", riceList);
+
+        List<BentoOrder> bentoOrderList = bentoService.selectAll();
+        List<Bento> bentoList = bentoService.selectBentoAll();
+        List<Rice> riceList = bentoService.selectRiceAll();
+
+        List<String> bentoNameList = bentoOrderList.stream().map(bentoOrder -> {
+            if (bentoOrder.getBento_id() == bentoList.get(0).getId()) {
+                return bentoList.get(0).getName();
+            } else if (bentoOrder.getBento_id() == bentoList.get(1).getId()) {
+                return bentoList.get(1).getName();
+            } else {
+                return bentoList.get(2).getName();
+            }
+        }).collect(Collectors.toList());
+
+        List<String> riceAvailablityList = bentoOrderList.stream().map(bentoOrder -> {
+            if (bentoOrder.getRice_id() == riceList.get(0).getId()) {
+                return riceList.get(0).getAvailability();
+            } else {
+                return riceList.get(1).getAvailability();
+            }
+        }).collect(Collectors.toList());
+
+        model.addAttribute("bentoOrderList", bentoOrderList);
+        model.addAttribute("bentoNameList", bentoNameList);
+        model.addAttribute("riceAvailablityList", riceAvailablityList);
 
         return "orderList";
     }
