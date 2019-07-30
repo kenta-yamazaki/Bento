@@ -24,6 +24,16 @@ public class BentoService {
         return list;
     }
 
+    public List<Bento> selectBentoAll() {
+        List<Bento> list = bentoRepository.findAll();
+        return list;
+    }
+
+    public List<Rice> selectRiceAll() {
+        List<Rice> list = riceRepository.findAll();
+        return list;
+    }
+
     public void create(BentoOrder bentoOrder) {
         bentoOrderRepository.save(bentoOrder);
     }
