@@ -29,7 +29,7 @@ public class BentoController {
     public String displayAdd(Model model) {
         model.addAttribute("bentoOrder", new BentoOrder());
         model.addAttribute("radioRice", bentoService.getRadioRice());
-        model.addAttribute("radioItems", bentoService.getRadioItems());
+        model.addAttribute("radioBento", bentoService.getRadioBento());
         return "order";
     }
 
