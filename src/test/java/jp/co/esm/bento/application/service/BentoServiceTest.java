@@ -73,11 +73,10 @@ class BentoServiceTest {
         );
     }
 
-
     @Test
     @Sql(statements = {"delete from bento_order;"
             , "INSERT INTO bento_order VALUES(1, 'hoge', 1, 0,'2017-07-22')", "INSERT INTO bento_order VALUES(2,'キティ',2,0,'2019-08-01')"})
-    public void bentoOrderの全件渡すとBentoOrderRepositoryから全件返される() throws Exception {
+    public void selectAllを呼び出すと注文内容が全件取得できる() throws Exception {
         List<BentoOrder> bentoOrder = new ArrayList<>();
         bentoOrder.add(new BentoOrder(1, "hoge", 1, 0, "2017-07-22"));
         bentoOrder.add(new BentoOrder(2, "キティ", 2, 0, "2019-08-01"));
@@ -85,29 +84,9 @@ class BentoServiceTest {
     }
 
     @Test
-    @Sql(statements = {"delete from bento;"
-            , "INSERT INTO bento VALUES(0,'勇気',380)", "INSERT INTO bento VALUES(1,'本気',320)"})
-    public void bentoの全件を渡すとBentoRepositoryから全件返される() throws Exception {
-        List<Bento> bento = new ArrayList<>();
-        bento.add(new Bento(0, "勇気", 380));
-        bento.add(new Bento(1, "本気", 320));
-        assertEquals(bento, bentoService.selectBentoAll());
-    }
-
-    @Test
-    @Sql(statements = {"delete from rice;"
-            , "INSERT INTO rice VALUES(0,'ご飯あり',110)", "INSERT INTO rice VALUES(1,'ご飯なし',0)"})
-    public void riceの全件を渡すとRiceRepositoryから全件返される() throws Exception {
-        List<Rice> rice = new ArrayList<>();
-        rice.add(new Rice(0, "ご飯あり", 110));
-        rice.add(new Rice(1, "ご飯なし", 0));
-        assertEquals(rice, bentoService.selectRiceAll());
-    }
-
-    @Test
     @Sql(statements = {"delete from bento_order;"
             , "INSERT INTO bento_order VALUES(1, 'hoge', 1, 0,'2017-07-22')"})
-    public void selectDataTest() throws Exception {
+    public void selectDataを呼び出すと注文内容が１件取得できる() throws Exception {
         BentoOrder bento = new BentoOrder(1, "hoge", 1, 0, "2017-07-22");
         assertEquals(bento, bentoService.selectData("1"));
     }
@@ -115,7 +94,7 @@ class BentoServiceTest {
     @Test
     @Sql(statements = {"delete from bento_order;"
             , "INSERT INTO bento_order VALUES(1, 'hoge', 1, 0,'2017-07-22')"})
-    public void selectDataErrTest() throws Exception {
+    public void selectDataを呼び出し指定したidが存在しない時エラーを返す() throws Exception {
         Throwable exception = assertThrows(NoSuchElementException.class, () -> {
             bentoService.selectData("0");
         });
@@ -125,7 +104,7 @@ class BentoServiceTest {
     @Test
     @Sql(statements = {"delete from bento;"
             , "INSERT INTO bento VALUES(0,'勇気',380)"})
-    public void bentoのidを渡すとBentoRepositoryから1レコード返される() throws Exception {
+    public void selectBentoを呼び出すと弁当の内容が１件取得できる() throws Exception {
         Bento bento = new Bento(0, "勇気", 380);
         assertEquals(bento, bentoService.selectBento(0));
     }
@@ -133,7 +112,7 @@ class BentoServiceTest {
     @Test
     @Sql(statements = {"delete from bento;"
             , "INSERT INTO bento VALUES(0,'勇気',380)"})
-    public void bentoのidを渡し該当するレコードがない場合エラーを返す() throws Exception {
+    public void selectBentoを呼び出して指定したidが存在しない時エラーを返す() throws Exception {
         Throwable exception = assertThrows(NoSuchElementException.class, () -> {
             bentoService.selectBento(3);
         });
@@ -143,7 +122,7 @@ class BentoServiceTest {
     @Test
     @Sql(statements = {"delete from rice;"
             , "INSERT INTO rice VALUES(0,'ご飯あり',110)"})
-    public void riceのidを渡すとRiceRepositoryから1レコード返される() throws Exception {
+    public void selectRiceを呼び出すとご飯の有無のいずれかが１件取得できる() throws Exception {
         Rice rice = new Rice(0, "ご飯あり", 110);
         assertEquals(rice, bentoService.selectRice(0));
     }
@@ -151,7 +130,7 @@ class BentoServiceTest {
     @Test
     @Sql(statements = {"delete from rice;"
             , "INSERT INTO rice VALUES(0,'ご飯あり',110)"})
-    public void riceのidを渡し該当するレコードがない場合エラーを返す() throws Exception {
+    public void selectRiceを呼び出して指定したidが存在しない時エラーを返す() throws Exception {
         Throwable exception = assertThrows(NoSuchElementException.class, () -> {
             bentoService.selectRice(3);
         });
@@ -161,7 +140,7 @@ class BentoServiceTest {
     @Test
     @Sql(statements = {"delete from bento;"
             , "INSERT INTO bento VALUES(0,'勇気',380)", "INSERT INTO bento VALUES(1,'本気',320)"})
-    public void getRadioBentoのテスト() throws Exception {
+    public void selectBentoAllを呼び出すと弁当のIDと名前が全件取得できる() throws Exception {
         Map<String, String> selectMap = new LinkedHashMap<String, String>();
         selectMap.put("0", "勇気");
         selectMap.put("1", "本気");
@@ -173,7 +152,7 @@ class BentoServiceTest {
     @Test
     @Sql(statements = {"delete from rice;"
             , "INSERT INTO rice VALUES(0,'ご飯あり',110)", "INSERT INTO rice VALUES(1,'ご飯なし',0)"})
-    public void getRadioRiceのテスト() throws Exception {
+    public void selectRiceAllを呼び出すとご飯のIDと有無が全件取得できる() throws Exception {
         Map<String, String> selectMap = new LinkedHashMap<String, String>();
         selectMap.put("0", "ご飯あり");
         selectMap.put("1", "ご飯なし");
@@ -181,5 +160,4 @@ class BentoServiceTest {
         assertEquals(selectMap.get("0"), rice.get(0).getAvailability());
         assertEquals(selectMap.get("1"), rice.get(1).getAvailability());
     }
-
 }
