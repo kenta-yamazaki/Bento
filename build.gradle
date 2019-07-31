@@ -20,6 +20,10 @@ test {
     useJUnitPlatform()
 }
 
+wrapper {
+    gradleVersion '4.10.3'
+}
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
