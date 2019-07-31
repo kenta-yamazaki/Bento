@@ -140,24 +140,37 @@ class BentoServiceTest {
     @Test
     @Sql(statements = {"delete from bento;"
             , "INSERT INTO bento VALUES(0,'勇気',380)", "INSERT INTO bento VALUES(1,'本気',320)"})
-    public void selectBentoAllを呼び出すと弁当のIDと名前が全件取得できる() throws Exception {
-        Map<String, String> selectMap = new LinkedHashMap<String, String>();
+    public void getRadioBentoを呼び出すと弁当のIDと種類が全件取得できる() throws Exception {
+        List<Bento> bentoList = new ArrayList<>();
+        bentoList.add(new Bento(0, "勇気", 380));
+        bentoList.add(new Bento(1, "本気", 320));
+        Map<String, String> selectMap = new LinkedHashMap<>();
         selectMap.put("0", "勇気");
         selectMap.put("1", "本気");
         List<Bento> bento = bentoService.selectBentoAll();
-        assertEquals(selectMap.get("0"), bento.get(0).getName());
-        assertEquals(selectMap.get("1"), bento.get(1).getName());
+
+        assertEquals(selectMap.get("0"), bentoList.get(0).getName());
+        assertEquals(selectMap.get("1"), bentoList.get(1).getName());
+
+        assertEquals(bentoList, bento);
     }
 
     @Test
     @Sql(statements = {"delete from rice;"
             , "INSERT INTO rice VALUES(0,'ご飯あり',110)", "INSERT INTO rice VALUES(1,'ご飯なし',0)"})
-    public void selectRiceAllを呼び出すとご飯のIDと有無が全件取得できる() throws Exception {
-        Map<String, String> selectMap = new LinkedHashMap<String, String>();
+    public void getRadioRiceを呼び出すとご飯のIDと有無が全件取得できる() throws Exception {
+        List<Rice> riceList = new ArrayList<>();
+        riceList.add(new Rice(0, "ご飯あり", 110));
+        riceList.add(new Rice(1, "ご飯なし", 0));
+        Map<String, String> selectMap = new LinkedHashMap<>();
         selectMap.put("0", "ご飯あり");
         selectMap.put("1", "ご飯なし");
         List<Rice> rice = bentoService.selectRiceAll();
+
         assertEquals(selectMap.get("0"), rice.get(0).getAvailability());
         assertEquals(selectMap.get("1"), rice.get(1).getAvailability());
+
+        assertEquals(riceList, rice);
     }
+
 }
