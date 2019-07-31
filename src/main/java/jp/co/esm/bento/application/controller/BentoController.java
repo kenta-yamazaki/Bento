@@ -29,7 +29,7 @@ public class BentoController {
     public String displayAdd(Model model) {
         model.addAttribute("bentoOrder", new BentoOrder());
         model.addAttribute("radioRice", bentoService.getRadioRice());
-        model.addAttribute("radioItems", bentoService.getRadioItems());
+        model.addAttribute("radioBento", bentoService.getRadioBento());
         return "order";
     }
 
@@ -54,23 +54,21 @@ public class BentoController {
         List<Bento> bentoList = bentoService.selectBentoAll();
         List<Rice> riceList = bentoService.selectRiceAll();
 
-        List<String> bentoNameList = bentoOrderList.stream().map(bentoOrder -> {
-            for (int i = 0; i < bentoList.size(); i++) {
-                if (bentoOrder.getBento_id() == bentoList.get(i).getId()) {
-                    return bentoList.get(i).getName();
-                }
-            }
-            return null;
-        }).collect(Collectors.toList());
+        Map<Integer,String> bentoMap = new HashMap<>();
+        for(int i = 0;i < bentoList.size();i++){
+            bentoMap.put(bentoList.get(i).getId(),bentoList.get(i).getName());
+        }
 
-        List<String> riceAvailablityList = bentoOrderList.stream().map(bentoOrder -> {
-            for (int i = 0; i < riceList.size(); i++) {
-                if (bentoOrder.getRice_id() == riceList.get(i).getId()) {
-                    return riceList.get(i).getAvailability();
-                }
-            }
-            return null;
-        }).collect(Collectors.toList());
+        List<String> bentoNameList = bentoOrderList.stream().map(bentoOrder -> bentoMap.get(bentoOrder.getBento_id())
+        ).collect(Collectors.toList());
+
+        Map<Integer,String> riceMap = new HashMap<>();
+        for(int i = 0;i < riceList.size();i++){
+            riceMap.put(riceList.get(i).getId(),riceList.get(i).getAvailability());
+        }
+
+        List<String> riceAvailablityList = bentoOrderList.stream().map(bentoOrder -> riceMap.get(bentoOrder.getRice_id())
+        ).collect(Collectors.toList());
 
         model.addAttribute("bentoOrderList", bentoOrderList);
         model.addAttribute("bentoNameList", bentoNameList);
