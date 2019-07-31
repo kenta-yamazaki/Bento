@@ -6,3 +6,16 @@
 .idea/
 build/
 out/
+
+.apt_generated
+.settings
+bin
+build
+lib
+log
+temp
+.classpath
+.DS_Store
+.factorypath
+.project
+gradlew.bat
