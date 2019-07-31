@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url:  jdbc:postgresql://localhost/testdb
+    username: postgres
+    password: postgres
+    driverClassName: org.postgresql.Driver
+    initialization-mode: always
+    thymeleaf.mode: HTML
